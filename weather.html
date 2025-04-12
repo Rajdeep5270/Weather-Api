@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Information</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <!-- main css  -->
+    <link rel="stylesheet" href="css/weather.css" type="text/css">
+</head>
+
+<body>
+
+    <!-- weather section  -->
+    <section class="weather bg-primary d-flex justify-content-center align-items-center vh-100">
+        <div class="container">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header text-white text-center rounded-top">
+                    <h2 class="fw-bold text-secondary">Weather Details</h2>
+                </div>
+                <div class="card-body bg-light p-5">
+                    <div class="form-group">
+                        <label for="state" class="form-label text-muted">Enter a City or State</label>
+                        <input type="text" id="state" class="form-control form-control-lg border-primary shadow-sm" placeholder="e.g., Surat, Gujarat">
+                    </div>
+                    <button onclick="getWeatherDetais()" class="btn btn-primary btn-lg btn-block rounded-pill mt-3">Get Weather</button>
+                    <div class="mt-4">
+                        <h5 id="current" class="font-weight-bold text-info my-3"></h5>
+                        <h5 id="feel" class="font-weight-bold text-info my-3"></h5>
+                        <h5 id="humidity" class="font-weight-bold text-info my-3"></h5>
+                        <h5 id="location" class="text-secondary my-3"></h5>
+                        <h5 id="name" class="text-secondary my-3"></h5>
+                        <h5 id="region" class="text-secondary my-3"></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS CDN -->
+    <script src="js/bootstrap.bundle.min.js" type="text/javascript"></script>
+    <!-- jQuery AJAX CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" type="text/javascript"></script>
+    <script>
+        function getWeatherDetais() {
+            var state = document.getElementById("state").value;
+            $.ajax({
+                url : "http://api.weatherapi.com/v1/current.json?key=57964062c15d4b3d969141704251503&q=" + state,
+                type : "get",
+                success : function (data) {
+                    console.log(data);
+                    document.getElementById("current").innerHTML = "Temperature = " + data.current.temp_c + " °C";
+                    document.getElementById("feel").innerHTML = "Feeks like = " + data.current.feelslike_c + " °C";
+                    document.getElementById("humidity").innerHTML = "Huimidity = " + data.current.feelslike_c + " °C";
+                    document.getElementById("location").innerHTML = "Country = " + data.location.country;
+                    document.getElementById("name").innerHTML = "City = " + data.location.name;
+                    document.getElementById("region").innerHTML = "Region = " + data.location.region;
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
